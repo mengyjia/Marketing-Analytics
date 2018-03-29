@@ -31,3 +31,29 @@ This notebook is a great example of adopting machine learning to solve business 
 
 ### Result
 The best models are __Gradient Boosting__ and __Gaussian Naive Bayes__, with f1 core 0.63 and 0.57 respectively. More specifically, the gradient boosting can predict 75% of churn customers and give 54% right alerts, while the gaussian naive bayes can predict 90% of churn customers and give 42% right alerts.
+
+
+## [Customer Segmentation](https://github.com/mengyjia/Marketing-Analytics/blob/master/Customer%20Segmentation/Customer%20Segmentation.ipynb)
+
+In this notebook, I’ll show how to use k-means clustering to segment customers into distinct groups based on purchasing habits. The dataset is from [instacart-market-basket-analysis](https://www.kaggle.com/c/instacart-market-basket-analysis/data) on kaggle. Since there are several tables, and our target is not about table manipulation, I download the combined data directly from [my kaggle kernel](https://www.kaggle.com/jmy666/customer-segments-with-pca/output).
+
+### Data Description
+
+From the kaggle:
+The dataset is anonymized and contains a sample of over 3 million grocery orders from more than 200,000 Instacart users. For each user, we provide between 4 and 100 of their orders, with the sequence of products purchased in each order. We also provide the week and hour of day the order was placed, and a relative measure of time between orders. For more information, see the blog post accompanying its public release.
+
+Basicly, each customer has a unique use_id, and might have several orders, which have unique order_id. For each order, there might be different products, belonging to aisles and departments. All products, aisles and departments have unique id and name. Most variables are self-explanatory.
+
+'Reordered' indicates that the customer has a previous order that contains the product. Note that some orders will have no reordered items. You may predict an explicit 'None' value for orders with no reordered items. See the evaluation page for full details. 'order_dow' is the day of week.
+
+### Brief
+
+I use aisles as the criteria of clustering and do not consider the sequence as well as quantity of orders. Therefore, in the table for clustering, each row represents a customer, and each column represents an aisle. The value of each cell is the total number of the specific aisle purchased by that customer. To remove the influence of quantity, I then calculate the proportion of each aisle by dividing the total number of aisles purchased by that customer.
+
+For clustering, I run the models both with and without PCA. The result shows that under low tolerance of variance, PCA can reach similar result and reduce the complexity of models significantly.
+
+Also, I demonstrate how to choose best k (number of clusters) step by step.
+
+### Business Interpretation of Clusters
+
+I understand that only clustering does not create values, and we need to interpret our models. This notebook shows how to gain insights from clusters from different aspects. At first I list top 10 aisles for each cluster and find that they are similar. I realize that this is because some aisles are necessaries of life. Then I remove the influence of necessaries, and list top 10 aisles for each cluster again. The result is really interesting, and we can gain clear insights about different clusters.
